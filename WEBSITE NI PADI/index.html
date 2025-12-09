@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Login Page</title>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <div class="form-box login active">
+        <h2>WELCOME TO MY WEBSITE</h2>
+
+        <form>
+            <div class="input-box">
+                <input type="email" id="loginEmail" required>
+                <label>📧 Email:</label>
+            </div>
+
+            <div class="input-box">
+                <input type="password" id="loginPassword" required>
+                <label>🔒 Password:</label>
+            </div>
+
+            <a href="#" class="forgot-link">Forgot password?</a>
+
+            <button type="submit" class="btn">Login</button>
+
+            <div class="login-register">
+                <p>Don't have an account?
+                    <a href="#" class="register-link">Register</a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="form-box register">
+        <h2>Create Account</h2>
+
+        <form action="portfolio.html">
+            <div class="input-box">
+                <input type="text" required>
+                <label>👤 Full Name:</label>
+            </div>
+
+            <div class="input-box">
+                <input type="email" required>
+                <label>📧 Email:</label>
+            </div>
+
+            <div class="input-box">
+                <input type="password" required>
+                <label>🔒 Password:</label>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+
+            <div class="login-register">
+                <p>Already have an account?
+                    <a href="#" class="login-link">Login</a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="form-box forgot">
+        <h2>Password Recovery</h2>
+
+        <form>
+            <div class="input-box">
+                <input type="email" required>
+                <label>📧 Enter Your Email:</label>
+            </div>
+
+            <button type="submit" class="btn">Send Reset Link</button>
+
+            <div class="login-register">
+                <p>Remembered your password?
+                    <a href="#" class="login-link">Back to login</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>

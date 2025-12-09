@@ -1,0 +1,243 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    background: linear-gradient(180deg, #001733, #003a66, #005c99, #0093e6, #68c8ff);
+    background-size: 180% 180%;
+    animation: iceShift 8s infinite alternate ease-in-out;
+
+    overflow: hidden;
+}
+
+
+@keyframes iceShift {
+    0%   { background-position: top; }
+    100% { background-position: bottom; }
+}
+
+
+body::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle,
+        rgba(120,180,255,0.25) 0%,
+        rgba(50,120,255,0.18) 40%,
+        rgba(0,0,0,0) 70%
+    );
+    filter: blur(30px);
+    animation: pulseIce 5s infinite ease-in-out;
+    z-index: 1;
+}
+
+@keyframes pulseIce {
+    0%,100% { transform: scale(1); opacity: 0.65; }
+    50%     { transform: scale(1.1); opacity: 0.9; }
+}
+
+
+.wrapper {
+    width: 360px;
+    padding: 40px 30px;
+    border-radius: 15px;
+
+    background: rgba(0, 20, 40, 0.60);
+    box-shadow:
+        0 0 18px rgba(100, 180, 255, 0.5),
+        0 0 40px rgba(70, 130, 255, 0.25);
+
+    backdrop-filter: blur(6px);
+    position: relative;
+    z-index: 10;
+}
+
+
+.form-box { display: none; }
+.form-box.active { display: block; }
+
+
+.form-box h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 2.3em;
+    text-align: center;
+    margin-bottom: 25px;
+
+    background: linear-gradient(90deg, #d0e9ff, #79b9ff, #2f8dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow: 0 0 12px rgba(120, 180, 255, 0.45);
+}
+
+
+.input-box {
+    position: relative;
+    width: 100%;
+    margin: 25px 0;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 10px;
+    border: none;
+    background: transparent;
+
+    border-bottom: 2px solid rgba(100, 160, 255, 0.6);
+
+    color: #e3f3ff;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.input-box input:focus {
+    border-bottom-color: #5faaff;
+    box-shadow: 0 4px 12px rgba(120, 180, 255, 0.4);
+}
+
+
+.input-box label {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #b4d7ff;
+    font-size: 15px;
+    pointer-events: none;
+    transition: 0.25s ease;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -8px;
+    font-size: 12px;
+    color: #8cc7ff;
+}
+
+
+.btn {
+    width: 100%;
+    padding: 12px 0;
+    margin-top: 20px;
+
+    background: linear-gradient(90deg, #4fa8ff, #1277e6);
+    color: white;
+
+    font-weight: 700;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 6px;
+
+    cursor: pointer;
+    transition: 0.25s ease;
+
+    box-shadow:
+        0 0 15px rgba(120, 170, 255, 0.45),
+        0 0 35px rgba(70, 130, 255, 0.25);
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #82c5ff, #308fff);
+    transform: scale(1.05);
+
+    box-shadow:
+        0 0 20px rgba(150, 200, 255, 0.6),
+        0 0 40px rgba(100, 150, 255, 0.4);
+}
+
+
+a {
+    color: #a8d6ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    color: #e8f4ff;
+    text-shadow: 0 0 10px #a8d6ff;
+}
+
+.login-register {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-register a {
+    font-weight: 600;
+    color: #c3e4ff;
+}
+
+
+@media (max-width: 900px) {
+    body::before {
+        width: 500px;
+        height: 500px;
+    }
+
+    .wrapper {
+        width: 330px;
+        padding: 35px 25px;
+    }
+
+    .form-box h2 {
+        font-size: 2em;
+    }
+}
+
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px;
+    }
+
+    .wrapper {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .form-box h2 {
+        font-size: 1.8em;
+    }
+
+    .input-box input {
+        font-size: 15px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .wrapper {
+        width: 95%;
+        padding: 25px 18px;
+        border-radius: 12px;
+    }
+
+    .form-box h2 {
+        font-size: 1.6em;
+    }
+
+    .btn {
+        padding: 10px 0;
+        font-size: 15px;
+    }
+
+    body::before {
+        width: 350px;
+        height: 350px;
+    }
+}
