@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+/* HOME PAGE */
+.home {
+    background: linear-gradient(to bottom right, #ffa8ce, #ff006f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    background: white;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.title {
+    font-size: 3rem;
+    color: #ff5fa2;
+}
+
+.subtitle {
+    margin: 15px 0 30px;
+    color: #777;
+}
+
+.cute-btn {
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    background-color: #ff8acb;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cute-btn:hover {
+    background-color: #ff5fa2;
+    transform: scale(1.05);
+}
+
+/* LOVE PAGE */
+.love-page {
+    background: linear-gradient(to bottom, #fff0f5, #ffe4ec);
+    padding: 40px;
+}
+
+.love-container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.love-photo {
+    width: 500px;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 10%;
+    margin: 20px 0;
+    border: 5px solid #ffb6d9;
+}
+
+.letter {
+    text-align: left;
+    color: #555;
+    line-height: 1.7;
+}
+
+.signature {
+    margin-top: 20px;
+    text-align: right;
+    color: #ff5fa2;
+}
+
+.back-btn {
+    margin-top: 25px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    background-color: #ffc1dc;
+    cursor: pointer;
+}
+
+
+/* HEART ANIMATION BACKGROUND */
+#hearts-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    opacity: 0.8;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* Make content above hearts */
+.container,
+.love-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* HEART ANIMATION BACKGROUND */
+#hearts-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    opacity: 0.8;
+}
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* Make content above hearts */
+.container,
+.love-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+/* Make container flexible */
+.container,
+.love-container {
+    width: 90%;
+    max-width: 600px;
+    padding: 30px;
+}
+
+/* Responsive text */
+.title {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+.subtitle {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+}
+
+/* Responsive button */
+.cute-btn,
+.back-btn {
+    width: 100%;
+    max-width: 300px;
+    font-size: 1rem;
+}
+
+/* Responsive image */
+.love-photo {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Mobile-specific tweaks */
+@media (max-width: 480px) {
+    .container,
+    .love-container {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .letter {
+        font-size: 0.95rem;
+    }
+
+    .signature {
+        font-size: 0.9rem;
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .love-page {
+        padding: 20px;
+    }
+}
