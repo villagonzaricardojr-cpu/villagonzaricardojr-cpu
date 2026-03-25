@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>🎴 Role Randomizer</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#1e3c72,#2a5298);
+    color: white;
+    text-align: center;
+    margin:0;
+    padding:20px;
+}
+
+/* Header */
+h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 10px black;
+}
+
+/* Card */
+.card {
+    width: 220px;
+    height: 320px;
+    margin: 40px auto;
+    perspective: 1000px;
+}
+.inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+.flip { transform: rotateY(180deg); }
+.face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size: 22px;
+    font-weight:bold;
+    box-shadow:0 5px 15px rgba(0,0,0,0.5);
+}
+.front { background:#111; color:#fff; }
+.back { transform:rotateY(180deg); background:#1f2937; color:white; padding:10px; text-align:center; }
+
+/* Buttons */
+button {
+    padding:12px 20px;
+    margin:10px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    background:#22c55e;
+    cursor:pointer;
+    transition:0.3s;
+}
+button:hover { background:#16a34a; box-shadow:0 5px 10px rgba(0,0,0,0.5);}
+</style>
+</head>
+<body>
+
+<h2>🎴 Randomly Assign Roles</h2>
+
+<div class="card">
+    <div class="inner" id="card">
+        <div class="face front">DRAW</div>
+        <div class="face back" id="role"></div>
+    </div>
+</div>
+
+<input type="text" id="playerName" placeholder="Enter player name" style="padding:10px;font-size:18px;margin-bottom:10px;width:80%;">
+<br>
+<button onclick="draw()">Assign Role</button>
+
+<script>
+let roles=[];
+let data=JSON.parse(localStorage.getItem('roles'))||[];
+let assigned=[];
+
+// Flatten roles
+data.forEach(r=>{
+    for(let i=0;i<r.count;i++) roles.push(r.role);
+});
+
+function draw(){
+    let player=document.getElementById('playerName').value.trim();
+    if(!player){ alert("Enter player name"); return; }
+    if(roles.length==0){ alert("All roles assigned"); window.location='board.html'; return; }
+
+    // Pick random role
+    let i=Math.floor(Math.random()*roles.length);
+    let role=roles.splice(i,1)[0];
+    assigned.push({player, role});
+    document.getElementById('role').innerText=`${role}`;
+    document.getElementById('card').classList.add('flip');
+
+    // Clear input
+    document.getElementById('playerName').value="";
+}
+
+// Hide card
+document.getElementById('card').addEventListener('transitionend',()=>{
+    document.getElementById('card').classList.remove('flip');
+});
+
+// Save assigned roles before leaving
+window.addEventListener('beforeunload',()=>{
+    localStorage.setItem('assigned',JSON.stringify(assigned));
+});
+</script>
+</body>
+</html>

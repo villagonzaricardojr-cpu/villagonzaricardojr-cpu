@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>🎭 Werewolf Game Setup</title>
+<style>
+/* General Body */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* Animated Header */
+.header {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg,#ff416c,#ff4b2b,#f9d423,#fc913a);
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    0% {text-shadow: 0 0 10px #ff416c;}
+    50% {text-shadow: 0 0 20px #f9d423;}
+    100% {text-shadow: 0 0 30px #fc913a;}
+}
+
+/* Grid layout for roles */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Role cards */
+.role {
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.role:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+/* Number input for role quantity */
+input[type=number] {
+    width: 50px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Tooltip for description */
+.tooltip {
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    white-space: nowrap;
+    z-index: 2;
+}
+.role:hover .tooltip {
+    display: block;
+}
+
+/* Continue button */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background: #22c55e;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.5);
+}
+button:hover {
+    background: #16a34a;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.6);
+}
+</style>
+</head>
+<body>
+
+<div class="header">🎭🐺 Werewolf Game Master 🐌💉🌿</div>
+<h2 style="text-align:center;">Select Roles & Quantity</h2>
+
+<div id="roles" class="grid"></div>
+
+<button onclick="saveRoles()">Continue →</button>
+
+<script>
+// Roles list with colors and description
+const rolesList=[
+    {role:"🐺 Wolf",desc:"Stalks villagers at night, main antagonist",color:"#b91c1c"},
+    {role:"🧿 Cursed one",desc:"Turns others into cursed if attacked",color:"#9333ea"},
+    {role:"😈 Madman",desc:"Tries to mislead villagers",color:"#f97316"},
+    {role:"🧪 Witch",desc:"Can poison or save one player",color:"#3b82f6"},
+    {role:"👤 Villager",desc:"Ordinary villager, votes during the day",color:"#60a5fa"},
+    {role:"🐌 Tough as nail",desc:"Hard to kill by wolf",color:"#22c55e"},
+    {role:"🔮 Seer",desc:"Discovers werewolf each night",color:"#a855f7"},
+    {role:"💉 Healer",desc:"Can heal one player per night",color:"#10b981"},
+    {role:"🌿 Druid",desc:"Can revive a dead player",color:"#34d399"},
+    {role:"🌀 Shapeshifter",desc:"Can change appearance to another player",color:"#818cf8"},
+    {role:"❤️ Lovers",desc:"Linked with another player, survival linked",color:"#f472b6"},
+    {role:"🎭 Jester",desc:"Wins if voted out",color:"#facc15"},
+    {role:"👑 Mayor",desc:"Votes count double",color:"#f59e0b"},
+    {role:"🏹 Hunter",desc:"Can take someone down if eliminated",color:"#ef4444"},
+    {role:"👦 Little boy",desc:"Can peek once at night",color:"#60a5fa"},
+    {role:"🎩 Illusionist",desc:"Can create fake role info",color:"#a78bfa"},
+    {role:"🔥 Arsonist",desc:"Can set one player on fire",color:"#f87171"},
+    {role:"🐺 Wolf shaman",desc:"Enhances wolves abilities",color:"#dc2626"},
+    {role:"🛡️ Bodyguard",desc:"Protects one player each night",color:"#22c55e"},
+    {role:"👻 Medium",desc:"Communicates with dead players",color:"#6b7280"},
+    {role:"⛪ Priest",desc:"Blocks evil actions",color:"#fbbf24"},
+    {role:"🧠 Amnesiac",desc:"Can remember a previous role",color:"#eab308"},
+    {role:"👥 Doppelganger",desc:"Copies another role",color:"#f472b6"},
+    {role:"🤡 Fool",desc:"Tries to confuse players",color:"#fcd34d"},
+    {role:"🤫 Silencer",desc:"Prevents players from talking",color:"#9ca3af"},
+    {role:"⛔ Roleblocker",desc:"Blocks actions of special roles",color:"#6d28d9"}
+];
+
+// Render roles
+let div=document.getElementById('roles');
+rolesList.forEach(r=>{
+    let d=document.createElement('div');
+    d.className='role';
+    d.style.background=r.color;
+    d.innerHTML=`
+        <label><input type='checkbox' value='${r.role}'> ${r.role}</label>
+        <input type='number' value='0'>
+        <div class="tooltip">${r.desc}</div>
+    `;
+    div.appendChild(d);
+});
+
+// Save selected roles to localStorage
+function saveRoles(){
+    let data=[];
+    document.querySelectorAll('.role').forEach(row=>{
+        let cb=row.querySelector('input[type=checkbox]');
+        let num=row.querySelector('input[type=number]');
+        if(cb.checked && num.value>0){
+            data.push({role: cb.value, count: Number(num.value)});
+        }
+    });
+    if(data.length===0){alert("Select at least one role"); return;}
+    localStorage.setItem('roles',JSON.stringify(data));
+    window.location='randomizer.html';
+}
+</script>
+
+</body>
+</html>

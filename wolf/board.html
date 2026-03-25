@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>🧩 Werewolf Game Board</title>
+<style>
+body {
+    font-family: Arial,sans-serif;
+    background: linear-gradient(135deg,#0b0f1a,#1f2937);
+    color: white;
+    margin:0;
+    padding:20px;
+}
+h2 { text-align:center; font-size:40px; color:#22c55e; text-shadow:1px 1px 10px black; }
+
+.grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    gap:15px;
+    margin-top:20px;
+}
+
+/* Player card */
+.player {
+    background:#1f2937;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    cursor:pointer;
+    transition:all 0.3s;
+    font-weight:bold;
+    position:relative;
+}
+.player:hover { transform: scale(1.05); box-shadow:0 0 15px rgba(255,255,255,0.4); }
+.dead { background:#7f1d1d !important; color:#ccc; text-decoration:line-through; }
+.hiddenRole .roleName { filter:blur(10px); transition:0.3s; }
+
+.roleEmoji { position:absolute; top:10px; left:10px; font-size:28px; }
+
+/* Buttons */
+button { margin:5px; padding:10px 15px; border:none; border-radius:8px; background:#22c55e; cursor:pointer; font-size:16px; transition:0.3s; }
+button:hover { background:#16a34a; box-shadow:0 4px 10px rgba(0,0,0,0.5); }
+
+/* Timer */
+.timer-container { text-align:center; margin:20px 0; }
+.timer { font-size:28px; font-weight:bold; }
+.progress-bar { width:80%; height:20px; background:#1f2937; border-radius:10px; margin:10px auto; overflow:hidden; }
+.progress-fill { height:100%; width:100%; background:#22c55e; transition:width 1s linear; }
+
+/* Legend */
+.legend { margin-top:20px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+.legend-item { display:flex; align-items:center; gap:5px; padding:5px 10px; border-radius:8px; font-weight:bold; color:white; transition:0.3s; }
+</style>
+</head>
+<body>
+
+<h2>🧩 Game Board</h2>
+
+<div class="timer-container">
+    <div id="timer" class="timer">⏱ 03:00</div>
+    <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+</div>
+
+<div style="text-align:center;">
+    <button onclick="toggleSecret()">👀 Secret Mode</button>
+    <button onclick="startDiscussion()">⏱ Start Discussion</button>
+    <button onclick="stopDiscussion()">⏹ Stop Discussion</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<h3 style="text-align:center;margin-top:20px">📜 Legend</h3>
+<div class="legend" id="legend"></div>
+
+<script>
+let assigned = JSON.parse(localStorage.getItem('assigned')) || [];
+let grid = document.getElementById('grid');
+let secret=false;
+let timerInterval=null;
+let timeLeft=180;
+
+// Render player cards
+let legendMap={};
+assigned.forEach(p=>{
+    let div=document.createElement('div');
+    div.className='player';
+    div.innerHTML=`<span class="roleEmoji">${p.role.split(' ')[0]}</span>
+                    <div>${p.player}</div>
+                    <div class="roleName">${p.role}</div>`;
+    div.onclick=()=>div.classList.toggle('dead');
+    grid.appendChild(div);
+
+    // Legend
+    if(!legendMap[p.role]) legendMap[p.role]=1; else legendMap[p.role]++;
+});
+
+// Legend panel
+let legend=document.getElementById('legend');
+for(let role in legendMap){
+    let item=document.createElement('div');
+    item.className='legend-item';
+    item.innerHTML=`${role} x${legendMap[role]}`;
+    legend.appendChild(item);
+}
+
+// Secret mode toggle
+function toggleSecret(){
+    secret=!secret;
+    document.querySelectorAll('.player .roleName').forEach(r=>{
+        r.parentElement.classList.toggle('hiddenRole');
+    });
+}
+
+// Discussion timer
+function startDiscussion(){
+    clearInterval(timerInterval);
+    timeLeft=180;
+    updateTimer();
+    timerInterval=setInterval(()=>{
+        timeLeft--;
+        updateTimer();
+        if(timeLeft<=0){
+            clearInterval(timerInterval);
+            alert("Times Up!");
+        }
+    },1000);
+}
+function stopDiscussion(){
+    clearInterval(timerInterval);
+    document.getElementById('timer').innerText='⏹ Discussion Stopped';
+    document.getElementById('progress').style.width='0%';
+}
+function updateTimer(){
+    document.getElementById('timer').innerText=`⏱ ${Math.floor(timeLeft/60).toString().padStart(2,'0')}:${(timeLeft%60).toString().padStart(2,'0')}`;
+    let progressPercent=(timeLeft/180)*100;
+    document.getElementById('progress').style.width=progressPercent+'%';
+}
+</script>
+</body>
+</html>
