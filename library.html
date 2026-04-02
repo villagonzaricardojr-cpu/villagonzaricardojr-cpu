@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Animated Dragon Cursor</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #0b0f1a;
+    cursor: none;
+    overflow: hidden;
+}
+
+/* Dragon */
+#dragon {
+    position: absolute;
+    width: 100px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s linear;
+}
+
+/* Fire particles */
+.fire {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: orange;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 10px red, 0 0 20px orange;
+    animation: fadeOut 0.6s forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Animated dragon GIF -->
+<img id="dragon" src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif">
+
+<script>
+const dragon = document.getElementById("dragon");
+
+let mouseX = 0;
+let mouseY = 0;
+let posX = 0;
+let posY = 0;
+
+// Smooth follow
+document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+// Fire on click
+document.addEventListener("click", (e) => {
+    for (let i = 0; i < 10; i++) {
+        const fire = document.createElement("div");
+        fire.classList.add("fire");
+        document.body.appendChild(fire);
+
+        fire.style.left = e.clientX + "px";
+        fire.style.top = e.clientY + "px";
+
+        setTimeout(() => fire.remove(), 600);
+    }
+});
+
+// Animation loop
+function animate() {
+    posX += (mouseX - posX) * 0.2;
+    posY += (mouseY - posY) * 0.2;
+
+    dragon.style.left = posX + "px";
+    dragon.style.top = posY + "px";
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
