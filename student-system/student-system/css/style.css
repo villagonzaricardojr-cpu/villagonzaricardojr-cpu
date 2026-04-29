@@ -1,0 +1,330 @@
+/* ===============================
+GLOBAL
+=============================== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+
+.container {
+    display: flex;
+}
+
+/* ===============================
+SIDEBAR
+=============================== */
+.sidebar {
+    width: 240px;
+    background: #0b1a2a;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    background: #12263a;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background: #00c853;
+}
+
+.sidebar ul li.active a {
+    background: #00c853;
+}
+
+/* ===============================
+MAIN CONTENT
+=============================== */
+.main {
+    flex: 1;
+    padding: 30px;
+}
+
+.subtitle {
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+/* ===============================
+SECTION BOX (MAIN CARD)
+=============================== */
+.section-box {
+    display: flex;
+    gap: 20px;
+    background: #0f1f2f;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+/* ===============================
+MINI MENU (LEFT INSIDE CARD)
+=============================== */
+.mini-menu {
+    width: 200px;
+    background: #081521;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.mini-menu h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.mini-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.mini-menu ul li {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #0e2235;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.mini-menu ul li.active {
+    background: #00c853;
+}
+
+/* ===============================
+RIGHT CONTENT
+=============================== */
+.content-box {
+    flex: 1;
+}
+
+/* ===============================
+TOP BAR
+=============================== */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.admin {
+    background: #1e2f40;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+/* ===============================
+CARD
+=============================== */
+.card {
+    background: #162b3f;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+/* ===============================
+FORM
+=============================== */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: none;
+    background: #0e2235;
+    color: white;
+}
+
+/* ===============================
+BUTTONS
+=============================== */
+button,
+.btn {
+    background: #00c853;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover,
+.btn:hover {
+    background: #00a844;
+}
+
+.delete-btn {
+    margin-top: 10px;
+    background: #ff1744;
+}
+
+.delete-btn:hover {
+    background: #d50000;
+}
+
+/* ===============================
+TABLE
+=============================== */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    padding: 12px;
+    background: #0e2235;
+    color: #ccc;
+}
+
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #1e3a5f;
+}
+
+.table tr:hover {
+    background: #12263a;
+}
+
+.subtitle {
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+/* MAIN SECTION BOX */
+.section-box {
+    display: flex;
+    background: #0f1f2f;
+    border-radius: 15px;
+    padding: 20px;
+    gap: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* MINI MENU */
+.mini-menu {
+    width: 200px;
+    background: #081521;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.mini-menu h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.mini-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.mini-menu ul li {
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background: #0e2235;
+}
+
+.mini-menu ul li.active {
+    background: #00c853;
+}
+
+/* CONTENT BOX */
+.content-box {
+    flex: 1;
+}
+
+/* TOP BAR */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.admin {
+    background: #1e2f40;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+/* FORM */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-grid input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #0e2235;
+    color: white;
+}
+
+.btn {
+    margin-top: 15px;
+    background: #00c853;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px;
+
+    color: white;
+    text-decoration: none;
+    background: #12263a;
+    border-radius: 10px;
+}
+
+.sidebar ul li a:hover {
+    background: #00c853;
+}
+.sidebar ul li.active a {
+    background: #00c853;
+}
